@@ -17,6 +17,7 @@ import '../../screens/authentication/otp_confirm_screen.dart';
 import '../../screens/authentication/register_screen.dart';
 import '../../screens/authentication/reset_password_screen.dart';
 import '../../screens/authentication/welcome_screen.dart';
+import '../../screens/home/aichatbot_screen.dart';
 import '../../screens/notification/notification_dashboard_screen.dart';
 import '../../screens/account/my_account_tab.dart';
 import '../../screens/system_management/group_management_screen.dart';
@@ -55,6 +56,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ForgotPasswordRoute.page, path: '/forgot-password'),
         AutoRoute(page: LoginRoute.page, path: '/login'),
         CustomRoute(page: ViewPdfFileRoute.page, path: '/view-pdf-file'),
+        CustomRoute(
+          page: AichatbotRoute.page, path: '/aichatbot/:fileId',transitionsBuilder: TransitionsBuilders.zoomIn,
+  durationInMilliseconds: 200,),
 
         /// routes go here
         RedirectRoute(path: '*', redirectTo: '/'),

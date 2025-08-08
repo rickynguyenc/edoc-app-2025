@@ -254,6 +254,7 @@ class DetailDocumentScreen extends HookConsumerWidget {
                         ),
                         Row(children: [
                           Expanded(
+                            flex: 5,
                             child: Container(
                               // height: 42,
                               child: ElevatedButton(
@@ -263,7 +264,7 @@ class DetailDocumentScreen extends HookConsumerWidget {
                                     borderRadius: BorderRadius.circular(39.31),
                                   ),
                                   minimumSize: Size(32, 32),
-                                  padding: const EdgeInsets.symmetric(horizontal: 25.16, vertical: 13.36),
+                                  padding: const EdgeInsets.symmetric( vertical: 13.36),
                                 ),
                                 onPressed: () {
                                   if (isRequesting.value) return;
@@ -328,9 +329,10 @@ class DetailDocumentScreen extends HookConsumerWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 16,
+                            width: 8,
                           ),
                           Expanded(
+                            flex: 5,
                             child: Container(
                               // height: 42,
                               child: ElevatedButton(
@@ -340,7 +342,7 @@ class DetailDocumentScreen extends HookConsumerWidget {
                                     borderRadius: BorderRadius.circular(39.31),
                                   ),
                                   minimumSize: Size(32, 32),
-                                  padding: const EdgeInsets.symmetric(horizontal: 25.16, vertical: 13.36),
+                                  padding: const EdgeInsets.symmetric( vertical: 13.36),
                                 ),
                                 onPressed: () async {
                                   context.router.push(ViewPdfFileRoute(filePath: [], idFile: id));
@@ -369,6 +371,51 @@ class DetailDocumentScreen extends HookConsumerWidget {
                               ),
                             ),
                           ),
+                        
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              // height: 42,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 36, 204, 2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(39.31),
+                                  ),
+                                  minimumSize: Size(32, 32),
+                                  padding: const EdgeInsets.symmetric( vertical: 13.36),
+                                ),
+                                onPressed: () async {
+                                  context.router.push(AichatbotRoute(fileId: id));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.support_agent_outlined,
+                                      size: 14,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      'Hỏi AI',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        
                         ]),
                         SizedBox(
                           height: 16,
@@ -415,10 +462,10 @@ class DetailDocumentScreen extends HookConsumerWidget {
                                 },
                                 alignment: Alignment.center,
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Color(0xFF3B5998)),
-                                  padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                  shape: MaterialStateProperty.all(CircleBorder()),
-                                  minimumSize: MaterialStateProperty.all(Size(32, 32)),
+                                  backgroundColor: WidgetStateProperty.all(Color(0xFF3B5998)),
+                                  padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                                  shape: WidgetStateProperty.all(CircleBorder()),
+                                  minimumSize: WidgetStateProperty.all(Size(32, 32)),
                                 ),
                                 icon: Icon(Icons.facebook, color: Colors.blue, size: 32),
                               ),
@@ -434,17 +481,17 @@ class DetailDocumentScreen extends HookConsumerWidget {
                               },
                               alignment: Alignment.center,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFF1DA1F2)),
-                                padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                shape: MaterialStateProperty.all(CircleBorder(
+                                backgroundColor: WidgetStateProperty.all(Colors.grey.shade400),
+                                padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                                shape: WidgetStateProperty.all(CircleBorder(
                                   side: BorderSide(
                                     color: Colors.grey.shade300,
                                     width: 1,
                                   ),
                                 )),
-                                minimumSize: MaterialStateProperty.all(Size(32, 32)),
+                                minimumSize: WidgetStateProperty.all(Size(32, 32)),
                               ),
-                              icon: Icon(Icons.email_outlined, color: Colors.grey.shade400, size: 32),
+                              icon: Icon(Icons.email_outlined, color: Colors.white, size: 32),
                             ),
                             SizedBox(
                               width: 8,
@@ -456,17 +503,17 @@ class DetailDocumentScreen extends HookConsumerWidget {
                               },
                               alignment: Alignment.center,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFF0077B5)),
-                                padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                shape: MaterialStateProperty.all(CircleBorder(
+                                backgroundColor: WidgetStateProperty.all(Color.fromARGB(255, 122, 11, 102)),
+                                padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                                shape: WidgetStateProperty.all(CircleBorder(
                                   side: BorderSide(
                                     color: Colors.grey.shade300,
                                     width: 1,
                                   ),
                                 )),
-                                minimumSize: MaterialStateProperty.all(Size(32, 32)),
+                                minimumSize: WidgetStateProperty.all(Size(32, 32)),
                               ),
-                              icon: Icon(Icons.phone_in_talk, color: Colors.grey.shade400, size: 32),
+                              icon: Icon(Icons.phone_in_talk, color: Colors.white, size: 32),
                             ),
                             SizedBox(
                               width: 8,
@@ -482,17 +529,17 @@ class DetailDocumentScreen extends HookConsumerWidget {
                               },
                               alignment: Alignment.center,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Color(0xFF00ACEE)),
-                                padding: MaterialStateProperty.all(EdgeInsets.all(8)),
-                                shape: MaterialStateProperty.all(CircleBorder(
+                                backgroundColor: WidgetStateProperty.all(Color(0xFF00ACEE)),
+                                padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                                shape: WidgetStateProperty.all(CircleBorder(
                                   side: BorderSide(
                                     color: Colors.grey.shade300,
                                     width: 1,
                                   ),
                                 )),
-                                minimumSize: MaterialStateProperty.all(Size(32, 32)),
+                                minimumSize: WidgetStateProperty.all(Size(32, 32)),
                               ),
-                              icon: Icon(Icons.copy_all, color: Colors.grey.shade400, size: 32),
+                              icon: Icon(Icons.copy_all, color: Colors.white, size: 32),
                             ),
                           ],
                         ),
