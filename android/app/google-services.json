@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "762123751763",
+    "project_id": "edoc-tabcom",
+    "storage_bucket": "edoc-tabcom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762123751763:android:137b06ff4eafddff62d1a6",
+        "android_client_info": {
+          "package_name": "vn.tabcom.edoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762123751763-k3joo2qgubnj2etroedphum8fh47k0pm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.tabcom.edoc",
+            "certificate_hash": "58eb261b5dde38d8397059c91d8a8abad73ead0b"
+          }
+        },
+        {
+          "client_id": "762123751763-509uugdga4ulhdli9a06ttvfh6e5q4dp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWbu4UFLv2jOpIsdpixmJ8hL9bGcN3yB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762123751763-509uugdga4ulhdli9a06ttvfh6e5q4dp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "762123751763-1jsd2m942skea9jl6insehdh0711h9ml.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.dft.smartf"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
