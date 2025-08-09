@@ -83,6 +83,24 @@ class LayoutEdoc extends HookConsumerWidget {
         ],
       ),
       body: bodyWidget,
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          // side: BorderSide(
+          //   color: Colors.grey.withOpacity(0.2),
+          //   width: 1,
+          // ),
+        ),
+        onPressed: () {
+          context.router.push(AIAgentRoute());
+        },
+        backgroundColor: Colors.red,
+        child: Image.asset(
+          'assets/images/intelligence.png',
+          width: 36,
+          height: 36,
+        ),
+      ),
     );
   }
 }

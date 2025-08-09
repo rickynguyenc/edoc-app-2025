@@ -1,13 +1,15 @@
 class AskResponse {
   String? response;
   String? interactionId;
-  int? tokensUsed;
-  int? processingTimeMs;
+  num? tokensUsed;
+  num? processingTimeMs;
   String? modelUsed;
-  double? cost;
+  num? cost;
   dynamic references;
   bool? isSuccessful;
   dynamic errorMessage;
+  String? role;
+  String? timestamp;
 
   AskResponse(
       {this.response,
@@ -18,7 +20,9 @@ class AskResponse {
       this.cost,
       this.references,
       this.isSuccessful,
-      this.errorMessage});
+      this.errorMessage,
+      this.role = 'user',
+      this.timestamp});
 
   AskResponse.fromJson(Map<String, dynamic> json) {
     response = json['response'];
@@ -30,6 +34,10 @@ class AskResponse {
     references = json['references'];
     isSuccessful = json['isSuccessful'];
     errorMessage = json['errorMessage'];
+    role = 'ai';
+    final now = DateTime.now();
+    timestamp =
+        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +51,8 @@ class AskResponse {
     data['references'] = this.references;
     data['isSuccessful'] = this.isSuccessful;
     data['errorMessage'] = this.errorMessage;
+    data['role'] = this.role;
+    data['timestamp'] = this.timestamp;
     return data;
   }
 }

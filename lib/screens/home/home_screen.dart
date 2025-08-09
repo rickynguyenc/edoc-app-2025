@@ -540,7 +540,7 @@ class HomeScreen extends HookConsumerWidget {
                                                 children: [
                                                   Text(
                                                     publicList[index].fileName ?? '',
-                                                    maxLines: 3,
+                                                    maxLines: 2,
                                                     overflow: TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       color: Color(0xFF243757),

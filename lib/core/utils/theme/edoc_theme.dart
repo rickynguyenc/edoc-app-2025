@@ -4,6 +4,7 @@ class EdocTheme {
   static ThemeData get lightTheme {
     //Chế độ sáng
     return ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
         //2
         // primaryColor: const Color(0xFF006076), // Màu chính
         primaryColor: const Color(0xFF005D7F), // Màu chính
@@ -13,7 +14,8 @@ class EdocTheme {
         //3
         buttonTheme: ButtonThemeData(
           // 4
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           buttonColor: const Color(0xFF005D7F),
         ));
   }
@@ -28,7 +30,8 @@ class EdocTheme {
         //3
         buttonTheme: ButtonThemeData(
           // 4
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           buttonColor: const Color(0xFF005D7F),
         ));
   }

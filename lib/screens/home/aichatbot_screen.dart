@@ -2,36 +2,40 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'dart:math' as math;
 import '../../core/utils/widgets/appbar_template_widget.dart';
+import '../../models/ai_chatbot_model.dart';
+import '../../providers/ai_chatbot_provider.dart';
 
 @RoutePage()
 class AichatbotScreen extends HookConsumerWidget {
   final String fileId;
-  const AichatbotScreen(this.fileId, {super.key});
-
+  AichatbotScreen(this.fileId, {super.key});
+  final now = DateTime.now();
+  late final timestamp =
+      "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Sample chat messages for UI demo
-    final messages = useState<List<Map<String, String>>>([
-      // {
-      //   'role': 'bot',
-      //   'text': 'Xin chào! Tôi có thể giúp gì cho bạn về file này?'
-      // },
-      // {'role': 'user', 'text': 'File này có nội dung gì?'},
-      // {'role': 'bot', 'text': 'File này chứa thông tin về hợp đồng lao động.'},
-    ]);
+    final messages = ref.watch(askResponsesProvider);
+    final askResponsesNotifier = ref.read(askResponsesProvider.notifier);
     final controller = useTextEditingController();
-
+    useEffect(() {
+      return () {
+        // Clear the controller when the widget is disposed
+        // Add delay to avoid rebuild issues when disposing
+        Future.delayed(Duration(seconds: 1), () {
+          askResponsesNotifier.clearResponses();
+        });
+      };
+    }, []);
     void handleSend() {
       final text = controller.text.trim();
       if (text.isNotEmpty) {
-        messages.value = [
-          ...messages.value,
-          {'role': 'user', 'text': text}
-        ];
+        // to simulate the AI response after sending the question.
+        ref.read(askResponsesProvider.notifier).askQuestion(fileId, text);
+        // Clear the input field
         controller.clear();
-        // TODO: Add AI response logic here
       }
     }
 
@@ -115,7 +119,7 @@ class AichatbotScreen extends HookConsumerWidget {
                       ),
                       SizedBox(width: 4),
                       Text(
-                        '17:30',
+                        timestamp,
                         style: TextStyle(
                           color: Colors.grey[500],
                           fontSize: 12,
@@ -130,14 +134,11 @@ class AichatbotScreen extends HookConsumerWidget {
               child: ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                itemCount: messages.value.length,
+                itemCount: messages.length,
                 itemBuilder: (context, index) {
-                  final msg = messages.value[index];
-                  final isUser = msg['role'] == 'user';
+                  final msg = messages[index];
+                  final isUser = msg.role == 'user';
                   // Add a fake timestamp for demo; replace with real time if available
-                  final now = DateTime.now();
-                  final timestamp =
-                      "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
                   return Align(
                     alignment:
                         isUser ? Alignment.centerRight : Alignment.centerLeft,
@@ -167,19 +168,30 @@ class AichatbotScreen extends HookConsumerWidget {
                               ),
                             ],
                           ),
-                          child: Text(
-                            msg['text'] ?? '',
-                            style: TextStyle(
-                              color: isUser ? Colors.white : Colors.black87,
-                              fontSize: 16,
-                            ),
-                          ),
+                          child: msg.role == "waiting"
+                              ? LoadingDots(
+                                  text: msg.response ?? '',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16,
+                                  ),
+                                )
+                              : Text(
+                                  msg.errorMessage != null
+                                      ? msg.errorMessage
+                                      : msg.response ?? '',
+                                  style: TextStyle(
+                                    color:
+                                        isUser ? Colors.white : Colors.black87,
+                                    fontSize: 16,
+                                  ),
+                                ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 8, right: 8, top: 2, bottom: 4),
                           child: Text(
-                            timestamp,
+                            msg.timestamp ?? '',
                             style: TextStyle(
                               color: Colors.grey[500],
                               fontSize: 12,
@@ -230,6 +242,29 @@ class AichatbotScreen extends HookConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LoadingDots extends HookWidget {
+  final String? text;
+  final TextStyle? style;
+  const LoadingDots({this.text, this.style, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final dotCount = useState(0);
+    useEffect(() {
+      final timer = Future.doWhile(() async {
+        await Future.delayed(const Duration(milliseconds: 400));
+        dotCount.value = (dotCount.value + 1) % 4;
+        return true;
+      });
+      return () {};
+    }, []);
+    return Text(
+      "$text${'.' * dotCount.value}",
+      style: style,
     );
   }
 }
