@@ -10,6 +10,19 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
   const AIDocumentGenaratorScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final styleDoc = useState('Chuyên nghiệp');
+    final lengthDoc = useState('Trung bình');
+    final docTypeIndex = ref.watch(docTypeIndexProvider);
+
+    // Add controllers for each field
+    final _txtController1 = useTextEditingController();
+    final _txtController2 = useTextEditingController();
+    final _txtController3 = useTextEditingController();
+    final _txtController4 = useTextEditingController();
+    final _txtController5 = useTextEditingController();
+    final _txtController6 = useTextEditingController();
+    final _txtController7 = useTextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,15 +68,6 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   "Chọn loại tài liệu",
-            //   style: TextStyle(
-            //     fontSize: 22,
-            //     fontWeight: FontWeight.bold,
-            //     color: Colors.black87,
-            //   ),
-            // ),
-            // Divider(height: 32, thickness: 1, color: Color(0xFFE6E6E6)),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -103,8 +107,218 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _FormLabel('Tên công ty *'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'VD: Công ty ABC',
+                        controller: _txtController1,
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Tên dự án *'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'VD: Hệ thống quản lý tài liệu',
+                        controller: _txtController2,
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Ngân sách dự kiến *'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'VD: 500 triệu VNĐ',
+                        controller: _txtController3,
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Thời gian thực hiện *'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'VD: 6 tháng',
+                        controller: _txtController4,
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Mục tiêu dự án *'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'Mô tả chi tiết mục tiêu...',
+                        maxLines: 4,
+                        controller: _txtController5,
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Đối tượng mục tiêu'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'VD: Doanh nghiệp vừa và nhỏ',
+                        controller: _txtController6,
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _FormLabel('Phong cách'),
+                                SizedBox(height: 4),
+                                Container(
+                                  child: DropdownButtonFormField<String>(
+                                    value: styleDoc.value,
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Trang trọng',
+                                        child: Text('Trang trọng'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Thân thiện',
+                                        child: Text('Thân thiện'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Chuyên nghiệp',
+                                        child: Text('Chuyên nghiệp'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Thuyết phục',
+                                        child: Text('Thuyết phục'),
+                                      ),
+                                    ],
+                                    onChanged: (value) {
+                                      styleDoc.value = value ?? 'Chuyên nghiệp';
+                                    },
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffef2e34), width: 1),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey[300]!, width: 1),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey[300]!, width: 1),
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _FormLabel('Độ dài'),
+                                SizedBox(height: 4),
+                                Container(
+                                  child: DropdownButtonFormField<String>(
+                                    value: lengthDoc.value,
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'Ngắn gọn',
+                                        child: Text('Ngắn gọn'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Trung bình',
+                                        child: Text('Trung bình'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Chi tiết',
+                                        child: Text('Chi tiết'),
+                                      ),
+                                    ],
+                                    onChanged: (value) {
+                                      lengthDoc.value = value ?? 'Trung bình';
+                                    },
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffef2e34), width: 1),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey[300]!, width: 1),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey[300]!, width: 1),
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      _FormLabel('Hướng dẫn bổ sung(tùy chọn)'),
+                      SizedBox(height: 4),
+                      _FormTextField(
+                        hint: 'Thêm bất kỳ yêu cầu đặc biệt nào...',
+                        maxLines: 4,
+                        controller: _txtController7,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton(
+          onPressed: () {
+            // You can now access the text values:
+            // _txtController1.text, _txtController2.text, etc.
+            context.router.pop();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xffef2e34),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            minimumSize: Size(0, 48),
+          ),
+          child: Text(
+            'Tạo tài liệu',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
         ),
       ),
     );
@@ -133,36 +347,36 @@ class _DocTypeCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final docTypeIndex = ref.watch(docTypeIndexProvider);
-    return  Container(
-          height: 130,
-          width: 200,
-          margin: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border:  Border.all(
-              color: docTypeIndex == index ? Color(0xffef2e34) : Colors.grey[300]!,
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: Offset(0, 2), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      elevation: 0,
-      child: InkWell(
+    return Container(
+      height: 130,
+      width: 200,
+      margin: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        onTap: () {
-          ref.read(docTypeIndexProvider.notifier).state = index;
-        },
-        child: Row(
+        border: Border.all(
+          color: docTypeIndex == index ? Color(0xffef2e34) : Colors.grey[300]!,
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: Offset(0, 2), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        elevation: 0,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () {
+            ref.read(docTypeIndexProvider.notifier).state = index;
+          },
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -217,6 +431,63 @@ class _DocTypeCard extends HookConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _FormLabel extends StatelessWidget {
+  final String text;
+  const _FormLabel(this.text, {super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 15,
+        color: Colors.black87,
+      ),
+    );
+  }
+}
+
+// Update _FormTextField to accept a controller
+class _FormTextField extends StatelessWidget {
+  final String hint;
+  final int maxLines;
+  final TextEditingController? controller;
+  const _FormTextField({
+    required this.hint,
+    this.maxLines = 1,
+    this.controller,
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle:
+            TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w400),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Color(0xffef2e34), width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       ),
     );
   }
