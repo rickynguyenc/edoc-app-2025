@@ -83,53 +83,6 @@ class AichatbotScreen extends HookConsumerWidget {
         color: Color(0xfff6f7fb),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-              child: Container(
-                // margin: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                // constraints: BoxConstraints(maxWidth: 320),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Chào bạn! Tôi đã sẵn sàng trả lời các câu hỏi về tài liệu "Algorithmic thinking". Hãy đặt câu hỏi của bạn.',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Row(children: [
-                      Icon(
-                        Icons.access_time,
-                        color: Colors.grey[500],
-                        size: 12,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        timestamp,
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 12,
-                        ),
-                      ),
-                    ]),
-                  ],
-                ),
-              ),
-            ),
             Expanded(
               child: ListView.builder(
                 padding:
@@ -139,27 +92,16 @@ class AichatbotScreen extends HookConsumerWidget {
                   final msg = messages[index];
                   final isUser = msg.role == 'user';
                   // Add a fake timestamp for demo; replace with real time if available
-                  return Align(
-                    alignment:
-                        isUser ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: isUser
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 4),
+                  return index == 0
+                      ? Container(
+                          margin: EdgeInsets.symmetric(vertical: 16),
+                          // margin: EdgeInsets.symmetric(vertical: 8),
                           padding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
-                          constraints: BoxConstraints(maxWidth: 320),
+                          // constraints: BoxConstraints(maxWidth: 320),
                           decoration: BoxDecoration(
-                            color: isUser ? Color(0xffef2e34) : Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(18),
-                              topRight: Radius.circular(18),
-                              bottomLeft: Radius.circular(isUser ? 18 : 4),
-                              bottomRight: Radius.circular(isUser ? 4 : 18),
-                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(18)),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black12,
@@ -168,39 +110,102 @@ class AichatbotScreen extends HookConsumerWidget {
                               ),
                             ],
                           ),
-                          child: msg.role == "waiting"
-                              ? LoadingDots(
-                                  text: msg.response ?? '',
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Chào bạn! Tôi đã sẵn sàng trả lời các câu hỏi về tài liệu "Algorithmic thinking". Hãy đặt câu hỏi của bạn.',
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Row(children: [
+                                Icon(
+                                  Icons.access_time,
+                                  color: Colors.grey[500],
+                                  size: 12,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  timestamp,
                                   style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 16,
-                                  ),
-                                )
-                              : Text(
-                                  msg.errorMessage != null
-                                      ? msg.errorMessage
-                                      : msg.response ?? '',
-                                  style: TextStyle(
-                                    color:
-                                        isUser ? Colors.white : Colors.black87,
-                                    fontSize: 16,
+                                    color: Colors.grey[500],
+                                    fontSize: 12,
                                   ),
                                 ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8, right: 8, top: 2, bottom: 4),
-                          child: Text(
-                            msg.timestamp ?? '',
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: 12,
-                            ),
+                              ]),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
+                        )
+                      : Align(
+                          alignment: isUser
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: isUser
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                constraints: BoxConstraints(maxWidth: 320),
+                                decoration: BoxDecoration(
+                                  color:
+                                      isUser ? Color(0xffef2e34) : Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(18),
+                                    topRight: Radius.circular(18),
+                                    bottomLeft:
+                                        Radius.circular(isUser ? 18 : 4),
+                                    bottomRight:
+                                        Radius.circular(isUser ? 4 : 18),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: msg.role == "waiting"
+                                    ? LoadingDots(
+                                        text: msg.response ?? '',
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 16,
+                                        ),
+                                      )
+                                    : Text(
+                                        msg.errorMessage != null
+                                            ? msg.errorMessage
+                                            : msg.response ?? '',
+                                        style: TextStyle(
+                                          color: isUser
+                                              ? Colors.white
+                                              : Colors.black87,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8, right: 8, top: 2, bottom: 4),
+                                child: Text(
+                                  msg.timestamp ?? '',
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                 },
               ),
             ),

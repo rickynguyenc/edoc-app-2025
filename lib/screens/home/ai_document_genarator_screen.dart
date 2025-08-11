@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edoc_tabcom/models/ai_agent_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/app_route/app_route.dart';
 import '../../providers/ai_document_genarator_provider.dart';
 
 @RoutePage()
@@ -10,8 +12,8 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
   const AIDocumentGenaratorScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final styleDoc = useState('Chuyên nghiệp');
-    final lengthDoc = useState('Trung bình');
+    final styleDoc = useState('professional');
+    final lengthDoc = useState('medium');
     final docTypeIndex = ref.watch(docTypeIndexProvider);
 
     // Add controllers for each field
@@ -22,6 +24,92 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
     final _txtController5 = useTextEditingController();
     final _txtController6 = useTextEditingController();
     final _txtController7 = useTextEditingController();
+
+    // Define label and hint text for each docTypeIndex
+    final List<List<String>> labels = [
+      // 0: Đề xuất Kinh doanh
+      [
+        'Tên công ty *',
+        'Tên dự án *',
+        'Ngân sách dự kiến *',
+        'Thời gian thực hiện *',
+        'Mục tiêu dự án *',
+        'Đối tượng mục tiêu',
+      ],
+      // 1: Biên bản Họp
+      [
+        'Tiêu đề cuộc họp *',
+        'Ngày họp *',
+        'Địa điểm *',
+        'Người tham dự *',
+        'Nội dung chính *',
+        'Quyết định',
+      ],
+      // 2: Báo cáo Dự án
+      [
+        'Tên dự án *',
+        'Kỳ báo cáo *',
+        'Tiến độ hoàn thành (%) *',
+        'Thành tựu đạt được *',
+        'Thách thức gặp phải',
+        'Kế hoạch tiếp theo *',
+      ],
+      // 3: Mô tả Công việc
+      [
+        'Tên vị trí *',
+        'Phòng ban *',
+        'Kinh nghiệm yêu cầu *',
+        'Trách nhiệm chính *',
+        'Yêu cầu kỹ năng *',
+        'Quyền lợi',
+      ],
+    ];
+
+    final List<List<String>> hints = [
+      // 0: Đề xuất Kinh doanh
+      [
+        'VD: Công ty ABC',
+        'VD: Hệ thống quản lý tài liệu',
+        'VD: 500 triệu VNĐ',
+        'VD: 6 tháng',
+        'Mô tả chi tiết mục tiêu...',
+        'VD: Doanh nghiệp vừa và nhỏ',
+      ],
+      // 1: Biên bản Họp
+      [
+        'VD: Họp tổng kết quý I',
+        'VD: 01/08/2025',
+        'VD: Phòng họp tầng 3',
+        'VD: Nguyễn Văn A, Trần Thị B...',
+        'Tóm tắt nội dung chính...',
+        'Các quyết định đã thống nhất...',
+      ],
+      // 2: Báo cáo Dự án
+      [
+        'VD: Dự án ABC',
+        'VD: Tháng 7/2025',
+        'VD: 80',
+        'Liệt kê thành tựu nổi bật...',
+        'Những khó khăn, thách thức...',
+        'Kế hoạch cho giai đoạn tiếp theo...',
+      ],
+      // 3: Mô tả Công việc
+      [
+        'VD: Nhân viên kinh doanh',
+        'VD: Phòng Kinh doanh',
+        'VD: 2 năm kinh nghiệm',
+        'Liệt kê trách nhiệm chính...',
+        'Các kỹ năng cần thiết...',
+        'Quyền lợi, phúc lợi...',
+      ],
+    ];
+
+    final documentTypes = [
+      'Đề xuất Kinh doanh',
+      'Biên bản Họp',
+      'Báo cáo Dự án',
+      'Mô tả Công việc',
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -116,46 +204,46 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _FormLabel('Tên công ty *'),
+                      _FormLabel(labels[docTypeIndex][0]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'VD: Công ty ABC',
+                        hint: hints[docTypeIndex][0],
                         controller: _txtController1,
                       ),
                       SizedBox(height: 16),
-                      _FormLabel('Tên dự án *'),
+                      _FormLabel(labels[docTypeIndex][1]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'VD: Hệ thống quản lý tài liệu',
+                        hint: hints[docTypeIndex][1],
                         controller: _txtController2,
                       ),
                       SizedBox(height: 16),
-                      _FormLabel('Ngân sách dự kiến *'),
+                      _FormLabel(labels[docTypeIndex][2]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'VD: 500 triệu VNĐ',
+                        hint: hints[docTypeIndex][2],
                         controller: _txtController3,
                       ),
                       SizedBox(height: 16),
-                      _FormLabel('Thời gian thực hiện *'),
+                      _FormLabel(labels[docTypeIndex][3]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'VD: 6 tháng',
+                        hint: hints[docTypeIndex][3],
                         controller: _txtController4,
                       ),
                       SizedBox(height: 16),
-                      _FormLabel('Mục tiêu dự án *'),
+                      _FormLabel(labels[docTypeIndex][4]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'Mô tả chi tiết mục tiêu...',
+                        hint: hints[docTypeIndex][4],
                         maxLines: 4,
                         controller: _txtController5,
                       ),
                       SizedBox(height: 16),
-                      _FormLabel('Đối tượng mục tiêu'),
+                      _FormLabel(labels[docTypeIndex][5]),
                       SizedBox(height: 4),
                       _FormTextField(
-                        hint: 'VD: Doanh nghiệp vừa và nhỏ',
+                        hint: hints[docTypeIndex][5],
                         controller: _txtController6,
                       ),
                       SizedBox(height: 16),
@@ -177,19 +265,19 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                                     ),
                                     items: [
                                       DropdownMenuItem(
-                                        value: 'Trang trọng',
+                                        value: 'formal',
                                         child: Text('Trang trọng'),
                                       ),
                                       DropdownMenuItem(
-                                        value: 'Thân thiện',
+                                        value: 'friendly',
                                         child: Text('Thân thiện'),
                                       ),
                                       DropdownMenuItem(
-                                        value: 'Chuyên nghiệp',
+                                        value: 'professional',
                                         child: Text('Chuyên nghiệp'),
                                       ),
                                       DropdownMenuItem(
-                                        value: 'Thuyết phục',
+                                        value: 'persuasive',
                                         child: Text('Thuyết phục'),
                                       ),
                                     ],
@@ -203,7 +291,7 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8),
                                         borderSide: BorderSide(
-                                            color: Color(0xffef2e34), width: 1),
+                                            color: Colors.grey[300]!, width: 1),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8),
@@ -240,15 +328,15 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                                     ),
                                     items: [
                                       DropdownMenuItem(
-                                        value: 'Ngắn gọn',
+                                        value: 'short',
                                         child: Text('Ngắn gọn'),
                                       ),
                                       DropdownMenuItem(
-                                        value: 'Trung bình',
+                                        value: 'medium',
                                         child: Text('Trung bình'),
                                       ),
                                       DropdownMenuItem(
-                                        value: 'Chi tiết',
+                                        value: 'long',
                                         child: Text('Chi tiết'),
                                       ),
                                     ],
@@ -262,7 +350,7 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8),
                                         borderSide: BorderSide(
-                                            color: Color(0xffef2e34), width: 1),
+                                            color: Colors.grey[300]!, width: 1),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8),
@@ -304,9 +392,66 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
-            // You can now access the text values:
-            // _txtController1.text, _txtController2.text, etc.
-            context.router.pop();
+            String requirement = "";
+            switch (docTypeIndex) {
+              case 0: // Đề xuất Kinh doanh
+                requirement = "Tạo đề xuất kinh doanh với các thông tin: \n"
+                    "Tên công ty: ${_txtController1.text}\n"
+                    "Tên dự án: ${_txtController2.text}\n"
+                    "Ngân sách: ${_txtController3.text}\n"
+                    "Thời gian: ${_txtController4.text}\n"
+                    "Mục tiêu: ${_txtController5.text}\n"
+                    "Đối tượng: ${_txtController6.text}\n"
+                    "Phong cách: ${styleDoc.value}\n"
+                    "Độ dài: ${lengthDoc.value}\n";
+                break;
+              case 1: // Biên bản Họp
+                requirement = "Tạo biên bản họp với các thông tin: \n"
+                    "Tiêu đề: ${_txtController1.text}\n"
+                    "Ngày họp: ${_txtController2.text}\n"
+                    "Địa điểm: ${_txtController3.text}\n"
+                    "Người tham dự: ${_txtController4.text}\n"
+                    "Nội dung chính: ${_txtController5.text}\n"
+                    "Quyết định: ${_txtController6.text}\n"
+                    "Phong cách: ${styleDoc.value}\n"
+                    "Độ dài: ${lengthDoc.value}\n";
+                break;
+              case 2: // Báo cáo Dự án
+                requirement = "Tạo báo cáo dự án với các thông tin: \n"
+                    "Tên dự án: ${_txtController1.text}\n"
+                    "Kỳ báo cáo: ${_txtController2.text}\n"
+                    "Tiến độ hoàn thành: ${_txtController3.text}\n"
+                    "Thành tựu: ${_txtController4.text}\n"
+                    "Thách thức: ${_txtController5.text}\n"
+                    "Kế hoạch tiếp theo: ${_txtController6.text}\n"
+                    "Phong cách: ${styleDoc.value}\n"
+                    "Độ dài: ${lengthDoc.value}\n";
+                break;
+              case 3: // Mô tả Công việc
+                requirement = "Tạo mô tả công việc với các thông tin: \n"
+                    "Tên vị trí: ${_txtController1.text}\n"
+                    "Phòng ban: ${_txtController2.text}\n"
+                    "Kinh nghiệm yêu cầu: ${_txtController3.text}\n"
+                    "Trách nhiệm chính: ${_txtController4.text}\n"
+                    "Yêu cầu kỹ năng: ${_txtController5.text}\n"
+                    "Quyền lợi: ${_txtController6.text}\n"
+                    "Phong cách: ${styleDoc.value}\n"
+                    "Độ dài: ${lengthDoc.value}\n";
+                break;
+              default:
+            }
+            final dtoBody = GenarateDocDto(
+                documentType: documentTypes[docTypeIndex],
+                title: _txtController1.text,
+                requirements: requirement,
+                tone: styleDoc.value,
+                length: lengthDoc.value,
+                includeVisuals: false,
+                language: "vi");
+            ref
+                .read(aiDocumentGeneratorProvider.notifier)
+                .generateDocument(dtoBody);
+            context.router.push(AIDocumentPreviewRoute());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xffef2e34),
@@ -317,7 +462,8 @@ class AIDocumentGenaratorScreen extends HookConsumerWidget {
           ),
           child: Text(
             'Tạo tài liệu',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
@@ -477,7 +623,7 @@ class _FormTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xffef2e34), width: 1),
+          borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

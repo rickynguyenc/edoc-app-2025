@@ -90,4 +90,92 @@ class GenarateDocResponse {
 }
 
 // Refactor text request
-// class RefactorTextDto {
+class ImproveTextDto {
+  String? text;
+  String? improvementType;
+  String? tone;
+  String? targetAudience;
+  String? language;
+  bool? showChanges;
+  bool? provideExplanation;
+
+  ImproveTextDto(
+      {this.text,
+      this.improvementType,
+      this.tone,
+      this.targetAudience,
+      this.language,
+      this.showChanges,
+      this.provideExplanation});
+
+  ImproveTextDto.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    improvementType = json['improvementType'];
+    tone = json['tone'];
+    targetAudience = json['targetAudience'];
+    language = json['language'];
+    showChanges = json['showChanges'];
+    provideExplanation = json['provideExplanation'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['text'] = this.text;
+    data['improvementType'] = this.improvementType;
+    data['tone'] = this.tone;
+    data['targetAudience'] = this.targetAudience;
+    data['language'] = this.language;
+    data['showChanges'] = this.showChanges;
+    data['provideExplanation'] = this.provideExplanation;
+    return data;
+  }
+}
+
+class ImproveTextResponse {
+  String? response;
+  String? interactionId;
+  num? tokensUsed;
+  num? processingTimeMs;
+  String? modelUsed;
+  num? cost;
+  dynamic references;
+  bool? isSuccessful;
+  dynamic errorMessage;
+
+  ImproveTextResponse(
+      {this.response,
+      this.interactionId,
+      this.tokensUsed,
+      this.processingTimeMs,
+      this.modelUsed,
+      this.cost,
+      this.references,
+      this.isSuccessful,
+      this.errorMessage});
+
+  ImproveTextResponse.fromJson(Map<String, dynamic> json) {
+    response = json['response'];
+    interactionId = json['interactionId'];
+    tokensUsed = json['tokensUsed'];
+    processingTimeMs = json['processingTimeMs'];
+    modelUsed = json['modelUsed'];
+    cost = json['cost'];
+    references = json['references'];
+    isSuccessful = json['isSuccessful'];
+    errorMessage = json['errorMessage'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['response'] = this.response;
+    data['interactionId'] = this.interactionId;
+    data['tokensUsed'] = this.tokensUsed;
+    data['processingTimeMs'] = this.processingTimeMs;
+    data['modelUsed'] = this.modelUsed;
+    data['cost'] = this.cost;
+    data['references'] = this.references;
+    data['isSuccessful'] = this.isSuccessful;
+    data['errorMessage'] = this.errorMessage;
+    return data;
+  }
+}

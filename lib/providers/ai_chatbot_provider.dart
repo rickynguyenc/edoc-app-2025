@@ -16,15 +16,20 @@ final askResponsesProvider =
 
 class AskResponsesNotifier extends StateNotifier<List<AskResponse>> {
   final Ref _ref;
-  AskResponsesNotifier(this._ref) : super([]);
+  AskResponsesNotifier(this._ref)
+      : super([
+          AskResponse(
+            response: 'Welcome to AI Chatbot',
+          )
+        ]);
   late final AiChatbotService _aiChatbotService =
       _ref.read(aiChatbotServiceProvider);
 
   Future<void> askQuestion(String fileId, String question) async {
     try {
       final now = DateTime.now();
-                  final timestamp =
-                      "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+      final timestamp =
+          "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
       state = [
         ...state,
         AskResponse(
@@ -87,6 +92,10 @@ class AskResponsesNotifier extends StateNotifier<List<AskResponse>> {
   }
 
   void clearResponses() {
-    state = [];
+    state = [
+      AskResponse(
+        response: 'Welcome to AI Chatbot',
+      )
+    ];
   }
 }

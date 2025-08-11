@@ -17,6 +17,8 @@ class AuthProvider {
   AuthProvider(this.ref);
   late final _authService = ref.read(authServiceProvider);
   bool get isAuthenticated => UserPreferences.instance.getToken() != '';
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  GoogleSignInAccount? _currentUser;
   // bool get isAuthenticated => false;
   Future<bool> login(BuildContext context, String username, String password) async {
     try {
@@ -43,9 +45,9 @@ class AuthProvider {
         'email',
         'https://www.googleapis.com/auth/contacts.readonly',
       ];
-      final GoogleSignInAccount? result = await GoogleSignIn(scopes: scopes).signIn();
+      final result = await _googleSignIn.signIn();
       if (result != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await result.authentication;
+        // final GoogleSignInAuthentication googleSignInAuthentication = await result.authentication;
         // final AuthCredential credential = GoogleAuthProvider.credential(
         //   accessToken: googleSignInAuthentication.accessToken,
         //   idToken: googleSignInAuthentication.idToken,

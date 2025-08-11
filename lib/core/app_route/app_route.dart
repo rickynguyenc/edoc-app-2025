@@ -19,6 +19,7 @@ import '../../screens/authentication/reset_password_screen.dart';
 import '../../screens/authentication/welcome_screen.dart';
 import '../../screens/home/ai_agent_screen.dart';
 import '../../screens/home/ai_document_genarator_screen.dart';
+import '../../screens/home/ai_document_preview_screen.dart';
 import '../../screens/home/ai_improve_text_screen.dart';
 import '../../screens/home/aichatbot_screen.dart';
 import '../../screens/notification/notification_dashboard_screen.dart';
@@ -85,6 +86,12 @@ class AppRouter extends _$AppRouter {
         CustomRoute(
           page: AIDocumentGenaratorRoute.page,
           path: '/ai-document-genarator',
+          transitionsBuilder: TransitionsBuilders.zoomIn,
+          durationInMilliseconds: 200,
+        ),
+        CustomRoute(
+          page: AIDocumentPreviewRoute.page,
+          path: '/ai-document-preview',
           transitionsBuilder: TransitionsBuilders.zoomIn,
           durationInMilliseconds: 200,
         ),
