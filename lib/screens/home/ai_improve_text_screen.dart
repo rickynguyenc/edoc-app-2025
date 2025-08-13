@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edoc_tabcom/core/app_route/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../models/ai_agent_model.dart';
 import '../../providers/ai_document_genarator_provider.dart';
 import '../../providers/ai_text_refactor_provider.dart';
 
@@ -18,12 +20,15 @@ class AITextRefactorScreen extends HookConsumerWidget {
     // Add controllers for each field
     final _txtController1 = useTextEditingController();
     final _txtController2 = useTextEditingController();
-    final _txtController3 = useTextEditingController();
-    final _txtController4 = useTextEditingController();
-    final _txtController5 = useTextEditingController();
-    final _txtController6 = useTextEditingController();
-    final _txtController7 = useTextEditingController();
-
+    final refactorStrings = [
+      'Ngữ pháp & Chính tả',
+      'Độ rõ ràng',
+      'Chuyên nghiệp',
+      'Súc tích',
+      'Sáng tạo'
+    ];
+    final showChanges = useState(true);
+    final provideExplanation = useState(true);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -58,7 +63,8 @@ class AITextRefactorScreen extends HookConsumerWidget {
                       fontWeight: FontWeight.bold)),
             ],
           ),
-          subtitle: Text('Nâng cao chất lượng văn bản của bạn với AI', overflow: TextOverflow.ellipsis,
+          subtitle: Text('Nâng cao chất lượng văn bản của bạn với AI',
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.white70, fontSize: 14)),
         ),
         centerTitle: true,
@@ -252,6 +258,53 @@ class AITextRefactorScreen extends HookConsumerWidget {
                           ),
                         ],
                       ),
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: showChanges.value,
+                              activeColor: Color(0xffef2e34),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              onChanged: (val) =>
+                                  showChanges.value = val ?? false,
+                            ),
+                          ),
+                          Text(
+                            'Hiển thị thay đổi',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: provideExplanation.value,
+                              activeColor: Color(0xffef2e34),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              onChanged: (val) =>
+                                  provideExplanation.value = val ?? false,
+                            ),
+                          ),
+                          Text(
+                            'Giải thích thay đổi',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 16),
                       _FormLabel('Hướng dẫn bổ sung(tùy chọn)'),
                       SizedBox(height: 4),
@@ -260,6 +313,7 @@ class AITextRefactorScreen extends HookConsumerWidget {
                         maxLines: 4,
                         controller: _txtController2,
                       ),
+                      SizedBox(height: 8),
                     ],
                   ),
                 ),
@@ -272,9 +326,21 @@ class AITextRefactorScreen extends HookConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
-            // You can now access the text values:
-            // _txtController1.text, _txtController2.text, etc.
-            context.router.pop();
+            final dtoBody = ImproveTextDto(
+                text: _txtController1.text,
+                improvementType: refactorStrings[refactorType],
+                language: 'vi',
+                provideExplanation: provideExplanation.value,
+                showChanges: showChanges.value,
+                targetAudience: targetReader.value,
+                tone: styleDoc.value);
+            ref.read(aiImproveTextsProvider.notifier).improveTexts(dtoBody);
+            context.router.push(AIImproveTextPreviewRoute(
+                originalText: _txtController1.text,
+                onApply: () {
+                  _txtController1.text =
+                      ref.read(aiImproveTextsProvider).response ?? '';
+                }));
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xffef2e34),

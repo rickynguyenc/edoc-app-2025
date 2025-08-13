@@ -20,8 +20,10 @@ import '../../screens/authentication/welcome_screen.dart';
 import '../../screens/home/ai_agent_screen.dart';
 import '../../screens/home/ai_document_genarator_screen.dart';
 import '../../screens/home/ai_document_preview_screen.dart';
+import '../../screens/home/ai_improve_text_preview_screen.dart';
 import '../../screens/home/ai_improve_text_screen.dart';
 import '../../screens/home/aichatbot_screen.dart';
+import '../../screens/home/scan_doc_from_image_screen.dart';
 import '../../screens/notification/notification_dashboard_screen.dart';
 import '../../screens/account/my_account_tab.dart';
 import '../../screens/system_management/group_management_screen.dart';
@@ -92,6 +94,12 @@ class AppRouter extends _$AppRouter {
         CustomRoute(
           page: AIDocumentPreviewRoute.page,
           path: '/ai-document-preview',
+          transitionsBuilder: TransitionsBuilders.zoomIn,
+          durationInMilliseconds: 200,
+        ),
+        CustomRoute(
+          page: AIImproveTextPreviewRoute.page,
+          path: '/ai-improve-text-preview',
           transitionsBuilder: TransitionsBuilders.zoomIn,
           durationInMilliseconds: 200,
         ),
