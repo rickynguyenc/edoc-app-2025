@@ -31,6 +31,14 @@ class AIAgentScreen extends HookConsumerWidget {
               ),
             ),
             SizedBox(height: 20),
+            // Scan Document Feature
+            Expanded(
+              child: _FeatureCard(
+                title: "Scan tài liệu",
+                subtitle: "Quét tài liệu nhanh chóng và dễ dàng",
+              ),
+            ),
+            SizedBox(height: 20),
             SizedBox(
               height: 56,
               width: double.infinity,
@@ -88,7 +96,9 @@ class _FeatureCard extends StatelessWidget {
           context.router.push(
             title == "Tạo tài liệu với AI"
                 ? AIDocumentGenaratorRoute()
-                : AITextRefactorRoute(),
+                : title == "Cải thiện văn bản AI"
+                    ? AITextRefactorRoute()
+                    : ScanDocFromImageRoute(), // Adjust this route as needed
           );
         },
         child: Container(
@@ -103,7 +113,7 @@ class _FeatureCard extends StatelessWidget {
               ),
             ],
             border: Border.all(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.red.withOpacity(0.6),
               width: 1,
             ),
           ),
@@ -116,14 +126,16 @@ class _FeatureCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 8),
+                        margin: EdgeInsets.only(bottom: 8),
                         child: Icon(
-                      title == "Tạo tài liệu với AI"
-                          ? Icons.edit_document
-                          : Icons.text_fields,
-                      color: Colors.red,
-                      size: 48,
-                    )),
+                          title == "Tạo tài liệu với AI"
+                              ? Icons.edit_document
+                              : title == "Cải thiện văn bản AI"
+                                  ? Icons.text_fields
+                                  : Icons.document_scanner_outlined,
+                          color: Colors.red,
+                          size: 48,
+                        )),
                     Text(
                       title,
                       style: TextStyle(

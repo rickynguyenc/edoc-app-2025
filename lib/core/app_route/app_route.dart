@@ -103,6 +103,12 @@ class AppRouter extends _$AppRouter {
           transitionsBuilder: TransitionsBuilders.zoomIn,
           durationInMilliseconds: 200,
         ),
+        CustomRoute(
+          page: ScanDocFromImageRoute.page,
+          path: '/scan-doc-from-image',
+          transitionsBuilder: TransitionsBuilders.zoomIn,
+          durationInMilliseconds: 200,
+        ),
 
         /// routes go here
         RedirectRoute(path: '*', redirectTo: '/'),
