@@ -123,7 +123,9 @@ class LoginScreen extends HookConsumerWidget {
                   suffixIcon: IconButton(
                     icon: Icon(
                       // Based on passwordVisible state choose the icon
-                      _passwordVisible.value ? Icons.visibility : Icons.visibility_off,
+                      _passwordVisible.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: const Color.fromRGBO(121, 120, 130, 1),
                     ),
                     onPressed: () {
@@ -187,7 +189,8 @@ class LoginScreen extends HookConsumerWidget {
                   child: SubmitButton(
                     'Đăng nhập',
                     onPressed: () {
-                      if (_passwordFormKey.currentState!.validate() && _userNameFormKey.currentState!.validate()) {
+                      if (_passwordFormKey.currentState!.validate() &&
+                          _userNameFormKey.currentState!.validate()) {
                         isLoading.value = true;
                         ref
                             .read(authProvider)
@@ -199,91 +202,12 @@ class LoginScreen extends HookConsumerWidget {
                             .then((value) {
                           isLoading.value = false;
                           if (value) {
-                            context.router.replaceAll([HomeRoute()], updateExistingRoutes: true);
+                            context.router.replaceAll([HomeRoute()],
+                                updateExistingRoutes: true);
                           }
                         });
                       }
                     },
-                  ),
-                ),
-                SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        color: Color(0xFFBDBDBD),
-                        height: 1,
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Text(
-                      'Hoặc',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF98A1B0),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Container(
-                        color: Color(0xFFBDBDBD),
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 24,
-                ),
-                Material(
-                  child: InkWell(
-                    onTap: () {
-                      ref.read(authProvider).loginWithGoogle(context).then((value) {
-                        if (value) {
-                          context.router.replaceAll([HomeRoute()], updateExistingRoutes: true);
-                        }
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1, color: Color(0xFFEEEEEE)),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Image.asset(
-                              'assets/images/google.png',
-                              height: 24,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            'Đăng nhập với Google',
-                            style: TextStyle(
-                              color: Color(0xFF212121),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
                 ),
               ],
