@@ -15,7 +15,7 @@ class AITextRefactorScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final styleDoc = useState('Chuyên nghiệp');
     final targetReader = useState('Công chúng');
-    final refactorType = ref.watch(docTypeIndexProvider);
+    final refactorType = ref.watch(textRefactorTypeIndexProvider);
 
     // Add controllers for each field
     final _txtController1 = useTextEditingController();
@@ -379,10 +379,11 @@ class _RefactorTypeCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final refactorType = ref.watch(textRefactorTypeIndexProvider);
     return Container(
-      // height: 130,
+      height: 100,
       width: 200,
       margin: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
       padding: const EdgeInsets.all(8),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -405,7 +406,7 @@ class _RefactorTypeCard extends HookConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            ref.read(docTypeIndexProvider.notifier).state = index;
+            ref.read(textRefactorTypeIndexProvider.notifier).state = index;
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -421,7 +422,7 @@ class _RefactorTypeCard extends HookConsumerWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       title,

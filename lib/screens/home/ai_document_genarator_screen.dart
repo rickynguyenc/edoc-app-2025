@@ -494,7 +494,7 @@ class _DocTypeCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final docTypeIndex = ref.watch(docTypeIndexProvider);
     return Container(
-      height: 130,
+      height: 142,
       width: 200,
       margin: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
       padding: const EdgeInsets.all(8),
