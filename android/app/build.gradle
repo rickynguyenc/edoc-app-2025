@@ -30,7 +30,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace 'vn.tabcom.edoc'
-    compileSdkVersion 34
+    compileSdkVersion 36
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -45,17 +45,17 @@ android {
         release {
             // You need to specify either an absolute path or include the
             // keystore file in the same directory as the build.gradle file.
-            storeFile file("my-release-key.jks")
-            storePassword "thuysan"
-            keyAlias "my-alias"
-            keyPassword "thuysan"
+            storeFile file("edoc_keystore.jks")
+            storePassword "Edoc@1234"
+            keyAlias "key0"
+            keyPassword "Edoc@1234"
         }
     }
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "vn.tabcom.edoc"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdkVersion 27
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
